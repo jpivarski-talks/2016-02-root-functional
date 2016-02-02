@@ -355,15 +355,27 @@ The lack of index variables prevents accidental mixing between elements of a col
 
 \begin{frame}[fragile]{Examples}
 \begin{block}{Partitioning by one feature and plotting another}
+\begin{itemize}
+\item {\tt groupByKey()} takes key-value pairs and makes a plot for each key
+\end{itemize}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
-    print Data.source().map(lambda _: (_.fType, _.fTemperature)).groupByKey()
+    print Data.source().map(lambda _: (_.fType, _.fTemperature))
+                       .groupByKey()
     {"type0": [20.756078720092773, 20.60653305053711, 20.34678840637207, ...
      "type1": [20.01813507080078, 20.524988174438477, 20.92605972290039, ...
      ...
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
-This kind of command should make many histograms, one for each key ({\tt fType} in this example). This is classic map-reduce.
+This kind of reducer would output a collection of key-histogram pairs. Physicists already do this manually, by repeatedly looping over the same ntuple (myself included).
+
+\vfill
+The key must be categorical (such as {\tt fType} strings), and categorical variables would usually be made by binning:
+\begin{itemize}
+\item {\tt bin(int num, double low, double high)} to make {\tt num + 2} categories (including ``underflow'' and ``overflow'')
+\item {\tt bin(double start, double width)} to make regular partitions without bounds
+\item {\tt bin(double centers*)} to make irregular partitions without bounds
+\end{itemize}
 \end{block}
 \end{frame}
 
