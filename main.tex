@@ -324,9 +324,6 @@ print Data.source().map(lambda event:
 
 \begin{frame}[fragile]{Examples}
 \begin{block}{Nested loops (for all $i$ in collection1, for all $j$ in collection2)}
-\begin{itemize}
-\item {\tt collection1.cartesian(collection2)}
-\end{itemize}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
 print Data.source().map(lambda event:
@@ -343,11 +340,7 @@ print Data.source().map(lambda event:
 \end{verbatim}}
 \end{block}
 
-\vspace{-0.5 cm}
 \begin{block}{Upper triangle (for all $i$ in collection, for $j \ge i$ in collection)}
-\begin{itemize}
-\item {\tt collection.triangular()}
-\end{itemize}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
 print Data.source().map(lambda event: event.fTracks.triangular()
