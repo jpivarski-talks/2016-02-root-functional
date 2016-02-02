@@ -323,10 +323,12 @@ print Data.source().map(lambda event:
 \end{frame}
 
 \begin{frame}[fragile]{Examples}
-\begin{block}{${\mathcal O}(n^2)$ operations on subcollections}
+\begin{block}{Mixing data from different events (tracks)}
 
 \vfill
-For $i$ in length, for $j$ in length:
+\begin{itemize}
+\item {\tt collection1.cartesian(collection2)} nested loops
+\end{itemize}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
 print Data.source().map(lambda event:
@@ -343,7 +345,9 @@ print Data.source().map(lambda event:
 \end{verbatim}}
 
 \vfill
-For $i$ in length, for $j \ge i$:
+\begin{itemize}
+\item {\tt collection.triangular()} nested loop on upper triangle
+\end{itemize}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
 print Data.source(1).map(lambda event: event.fTracks.triangular()
