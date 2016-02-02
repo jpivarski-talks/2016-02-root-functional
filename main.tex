@@ -239,24 +239,40 @@ Note: {\tt filterMap} drops {\tt None} (or {\tt nullptr}) results, similar to {\
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
 \end{block}
+\end{frame}
 
+\begin{frame}[fragile]{Examples}
+\begin{block}{Subcollections of records of subcollections}
+The ROOT syntax for this one is ambiguous.
+
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fTracks.fVertex[0]")
+
+    # I would have thought it's this:
+    Data.source().flatMap(lambda event: event.fTracks.map(lambda track: track.fVertex[0]))
+
+    # But no, it's actually this:
+    Data.source().flatMap(lambda event: event.fTracks[0].fVertex)
+\end{verbatim}}
+
+Moreover, moving the bracketed expression doesn't change the meaning as I'd think it should.
+
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fTracks[0].fVertex")
+
+    # Now I'd expect it to be reversed:
+    # Data.source(100).flatMap(lambda event: event.fTracks.map(lambda track: track.fVertex[0]))
+
+    # But no, it's the same thing as before:
+    Data.source(100).flatMap(lambda event: event.fTracks[0].fVertex)
+\end{verbatim}}
+
+\end{block}
 \end{frame}
 
 
 
 
-
-%% ttree.Draw("fTracks.fVertex[0]")
-%% # you might think it's this:
-%% # Data.source().flatMap(lambda event: event.fTracks.map(lambda track: track.fVertex[0]))
-%% # but no, it's actually this:
-%% Data.source().flatMap(lambda event: event.fTracks[0].fVertex)
-
-%% ttree.Draw("fTracks[0].fVertex")
-%% # now you might think it's reversed:
-%% # Data.source(100).flatMap(lambda event: event.fTracks.map(lambda track: track.fVertex[0]))
-%% # but no, it's the same thing as before:
-%% Data.source(100).flatMap(lambda event: event.fTracks[0].fVertex)
 
 %% ttree.Draw("Sum$(fTracks.fPx)")
 %% Data.source(100).map(lambda event: event.fTracks.map(lambda track: track.fPx).sum())
