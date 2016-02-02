@@ -158,7 +158,7 @@ Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? 
 \vspace{-0.5\baselineskip}
 \end{block}
 
-\begin{block}{Fixed-size arrays}
+\begin{block}{Fixed-length subcollections}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
     ttree.Draw("fMatrix")
@@ -183,7 +183,7 @@ Note: {\tt flatMap} is equivalent to {\tt map} followed by {\tt flatten}, but it
 \end{frame}
 
 \begin{frame}[fragile]{Examples}
-\begin{block}{Variable-sized arrays}
+\begin{block}{Variable-length subcollections}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
     ttree.Draw("fClosestDistance")
@@ -206,11 +206,26 @@ Note: {\tt filterMap} drops {\tt None} (or {\tt nullptr}) results, similar to {\
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Examples}
+\begin{block}{Subcollections of records}
+\vspace{-0.5\baselineskip}
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fTracks.fPx")
+
+    Data.source().flatMap(lambda event: event.fTracks)
+                 .map(lambda track: track.fPx)
+
+    Data.source().flatMap(lambda event:
+                              event.fTracks.map(lambda track:
+                                                    track.fPx))
+\end{verbatim}}
+\vspace{-0.5\baselineskip}
+Note: these two solutions differ by the placement of a close-parenthesis, yet they have no semantic difference. They might optimize differently, though.
+\end{block}
+\end{frame}
 
 
-%% ttree.Draw("fTracks.fPx")
-%% Data.source().flatMap(lambda event: event.fTracks).map(lambda track: track.fPx)
-%% Data.source().flatMap(lambda event: event.fTracks.map(lambda track: track.fPx))
+
 
 %% ttree.Draw("fNpoint >> hNpointPx", "fPx < 0)
 %% Data.source().flatMap(lambda _: _.fTracks).filter(lambda _: _.fPx < 0).map(lambda _: _.fNpoint)
