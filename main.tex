@@ -129,24 +129,21 @@ Idle question\ldots\ would C++ type specification and templating make this unrea
 \begin{block}{Weighting?}
 Filters in functional chains are always boolean, but in HEP it can be very important to weight events by a floating point number.
 
-(Zero is equivalent to filtering out; one is equivalent to keeping; negative numbers may or may not be allowed.)
-
 {\scriptsize \begin{verbatim}
     ttree.Draw("fNtrack", "(fTemperature - 20.5)**2")
 \end{verbatim}}
 
-Could express this as a stream of value-weight pairs (that the user has to explicitly pass on through the pipeline).
+Perhaps express this as a stream of value-weight pairs? (Must be explicitly passed on through pipeline.)
 
 {\scriptsize \begin{verbatim}
     Data.source().map(lambda _: (_.fNtrack, (_.fTemperature - 20.5)**2))
 \end{verbatim}}
 
-Could express this as a special {\tt weight} functor that affects the {\tt collection<T>} itself to associate each element with a weight. The {\tt collection<T>} could even drop elements with zero weight, so that {\tt weight} could be a generalization of {\tt filter}.
+Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself?
 
 {\scriptsize \begin{verbatim}
     Data.source().weight(lambda _: (_.fTemperature - 20.5)**2).map(lambda _: _.fNtrack)
 \end{verbatim}}
-
 \end{block}
 
 
