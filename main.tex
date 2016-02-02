@@ -38,7 +38,7 @@ The process of cutting and transforming ntuples, putting results in plots, is th
 \begin{block}{}
 ROOT has a mini-language for cuts and transformations:
 {\scriptsize \begin{verbatim}
-    ttree->Draw("fNtrack/fNvertex", "fIsValid && fFlag == 1")
+    ttree->Draw("fNtrack / fNvertex", "fIsValid && fFlag == 1")
 \end{verbatim}}
 Like an SQL-select and SQL-where (no SQL-groupby).
 \end{block}
@@ -55,19 +55,30 @@ Like an SQL-select and SQL-where (no SQL-groupby).
 \end{frame}
 
 \begin{frame}[fragile]{Motivation}
-\begin{block}
+\begin{block}{}
 C++11 introduced a syntax for lambda expressions, which would make a functional style convenient. For instance, the mini-language could be replaced by:
 {\scriptsize \begin{verbatim}
-    [](Event _) { return _.fNtrack/_.fNvertex; }
+    [](Event _) { return _.fNtrack / _.fNvertex; }
 \end{verbatim}}
 and
 {\scriptsize \begin{verbatim}
     [](Event _) { return _.fIsValid && _.fFlag == 1; }
 \end{verbatim}}
-here
+\end{block}
+
+\begin{block}{}
+Functional pipelines form the basis of data manipulation in R, NumPy, Hadoop, Spark, SQL, Lisp, and others. The basic style is (Spark example):
+{\scriptsize \begin{verbatim}
+    val output = input filter {x => x.fIsValid && x.fFlag} map {x.fNtrack / x.fNvertex}  // set up pipeline
+    output.take(10)   // start the process for the first 10 results (after filter)
+\end{verbatim}}
 
 
 \end{block}
+
+
+
+
 \end{frame}
 
 \end{document}
