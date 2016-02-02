@@ -92,11 +92,13 @@ The basic style is (Spark example):
 \end{itemize}
 
 \begin{block}{Example:}
-\vspace{-\baselineskip}
+\vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
     ttree.Draw("fNtrack >> hNtrack")
     assert Data.source().map(lambda _: _.fNtrack).verify("hNtrack")
 \end{verbatim}}
+
+\vspace{-0.5\baselineskip}
 where {\tt Data.source()} produces a lazy input stream (Python generator) and {\tt verify("hNtrack")} evaluates the stream, fills a histogram with the same range as {\tt hNtrack}, and verifies identical contents.
 \end{block}
 \end{frame}
