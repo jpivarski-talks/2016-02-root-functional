@@ -289,7 +289,7 @@ still matches the second functional chain. Is there {\it any} way to get the fir
     ttree.Draw("Sum$(fTracks.fVertex)")
     Data.source().map(lambda event:
                              event.fTracks.flatMap(lambda track:
-                                                          track.fVertex).sum())
+                                                     track.fVertex).sum())
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
 \end{block}
