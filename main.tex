@@ -323,11 +323,9 @@ print Data.source().map(lambda event:
 \end{frame}
 
 \begin{frame}[fragile]{Examples}
-\begin{block}{More mixing data}
-
-\vfill
+\begin{block}{Nested loops (for all $i$ in collection1, for $j$ in collection2)}
 \begin{itemize}
-\item {\tt collection1.cartesian(collection2)} for nested loops
+\item {\tt collection1.cartesian(collection2)}
 \end{itemize}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
@@ -343,33 +341,32 @@ print Data.source().map(lambda event:
                                                      one.fPx - two))
 [-1.9208314418792725, -0.19817519187927246, -2.0458314418792725, ...
 \end{verbatim}}
+\end{block}
 
-\vfill
+\begin{block}{Upper triangle (for all $i$ in collection, for $j \ge i$ in collection)}
 \begin{itemize}
-\item {\tt collection.triangular()} for the upper triangle
+\item {\tt collection.triangular()}
 \end{itemize}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
-print Data.source(1).map(lambda event: event.fTracks.triangular()
-                                            .map(lambda (one, two):
-                                                     one.fPx - two.fPx))
+print Data.source().map(lambda event: event.fTracks.triangular()
+                                           .map(lambda (one, two):
+                                                    one.fPx - two.fPx))
 [0.0, -1.5152950286865234, -1.580427646636963, 0.8946521282196045, ...
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Examples}
+\begin{block}{}
 
-%% ### more general stuff
 
-%% # set-like functions
-%% print Data.source().map(lambda _: _.fType).distinct()
-%% # [u'type0', u'type1', u'type2', u'type3', u'type4']
 
-%% # mix data from different events (intentionally, with "skip" and "zip", not through an indexing error)
-%% print Data.zip(Data.source(10).map(lambda _: _.fEvtHdr.fEvtNum),
-%%                Data.source(10).skip(1).map(lambda _: _.fEvtHdr.fEvtNum))
-%% # [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9)]
+
+\end{block}
+\end{frame}
+
 
 %% # classic map-reduce
 %% # ... over events
@@ -378,7 +375,5 @@ print Data.source(1).map(lambda event: event.fTracks.triangular()
 %% # ... over tracks
 %% print Data.source(100).flatMap(lambda event: event.fTracks.map(lambda track: (event.fType, track.fPx))).reduceByKey(lambda x, y: x + y)
 %% # {u'type4': 71.62951914654695, u'type1': 64.94598009073525, u'type0': 78.63334554358516, u'type3': -70.40691937762313, u'type2': 5.186185833030322}
-
-
 
 \end{document}
