@@ -276,8 +276,7 @@ still matches the second functional chain. Is there {\it any} way to get the fir
     # sum of fPx for all tracks in each event
     ttree.Draw("Sum$(fTracks.fPx)")
     Data.source().map(lambda event:
-                             event.fTracks.map(lambda track:
-                                                      track.fPx)
+                             event.fTracks.map(lambda track: track.fPx)
                                           .reduce(lambda x, y: x + y))
 
     # same as above with sum() as alias for reduce(lambda x, y: x + y)
