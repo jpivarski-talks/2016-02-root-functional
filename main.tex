@@ -44,8 +44,8 @@ Like an SQL-select and SQL-where (no SQL-groupby).
 \end{block}
 
 \begin{itemize}
-\item Good for quick plots (very important!)
-\item Some transformations cannot be expressed (good and bad, depending)
+\item Good for quick plots on flat ntuples (very important!)
+\item Limited ability to transform ntuples with structure (more important than physicists realize)
 \item Users can go beyond this by writing explicit for-loops over ntuple contents, but at a cost:
 \begin{itemize}
 \item Explicit, imperative programs can't be easily parallelized
@@ -146,15 +146,6 @@ Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? 
                  .map(lambda _: _.fNtrack)
 \end{verbatim}}
 \end{block}
-
-
-
-
-%% # make new data structures in map for later processing or histogram weighting
-%% print Data.source(10).map(lambda _: (_.fNtrack, _.fTemperature))
-%% # [(603, 20.756078720092773), (602, 20.01813507080078), (596, 20.674409866333008), (602, 20.815942764282227), (592, 20.677644729614258), (596, 20.60653305053711), (603, 20.524988174438477), (589, 20.798776626586914), (600, 20.816205978393555), (600, 20.80414390563965)]
-
-
 \end{frame}
 
 %% ttree.Draw("fEvtHdr.fEvtNum + fTemperature * 6")
