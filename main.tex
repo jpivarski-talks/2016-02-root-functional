@@ -356,7 +356,7 @@ The lack of index variables prevents accidental mixing between elements of a col
 \begin{frame}[fragile]{Examples}
 \begin{block}{Partitioning by one feature and plotting another}
 \begin{itemize}
-\item {\tt groupByKey()} takes key-value pairs and makes a plot for each key
+\item {\tt groupByKey()} takes key-value pairs and makes a histogram for each key (as a {\tt std::map<std::string, TH1>}, perhaps).
 \end{itemize}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
@@ -374,7 +374,7 @@ The lack of index variables prevents accidental mixing between elements of a col
      ...
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
-This kind of reducer would output a collection of key-histogram pairs. Physicists already do this manually, by repeatedly looping over the same ntuple (myself included).
+Physicists already do this manually, by repeatedly looping over the same ntuple (myself included).
 \end{block}
 \end{frame}
 
