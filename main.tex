@@ -139,10 +139,11 @@ Perhaps express this as a stream of value-weight pairs? (Must be explicitly pass
     Data.source().map(lambda _: (_.fNtrack, (_.fTemperature - 20.5)**2))
 \end{verbatim}}
 
-Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself?
+Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? Every functor would have to know about weights and pass them on automatically.
 
 {\scriptsize \begin{verbatim}
-    Data.source().weight(lambda _: (_.fTemperature - 20.5)**2).map(lambda _: _.fNtrack)
+    Data.source().weight(lambda _: (_.fTemperature - 20.5)**2)
+                 .map(lambda _: _.fNtrack)
 \end{verbatim}}
 \end{block}
 
