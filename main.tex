@@ -112,13 +112,16 @@ where {\tt Data.source()} produces a lazy input stream (Python generator) and {\
     Data.source().filter(lambda _: _.fFlag == 1).map(lambda _: _.fNtrack)
 \end{verbatim}}
 
-\vspace{-0.5\baselineskip}
-Note: filter must go first! Type constants can ensure that:
+Note: filter must go before the transformation!
+
+\vfill
+Type constants can ensure that:
 \begin{itemize}
 \item {\tt filter} takes a {\tt function<Event -> bool>} and returns {\tt collection<Event>}
 \item {\tt map} takes a {\tt function<Event -> <T> >} and returns {\tt collection<T>} (in this case, {\tt collection<int>})
 \end{itemize}
 
+\vfill
 Idle question\ldots\ would C++ type specification and templating make this unreadable?
 \end{block}
 
