@@ -216,7 +216,7 @@ Note: {\tt filterMap()} drops {\tt None} (or {\tt nullptr}) results, similar to 
     Data.source().flatMap(lambda event: event.fTracks)
                  .map(lambda track: track.fPx)
 
-    # nested chain
+    # nested chain (equivalent, but perhaps less parallelizable)
     Data.source().flatMap(lambda event:
                                  event.fTracks.map(lambda track:
                                                           track.fPx))
