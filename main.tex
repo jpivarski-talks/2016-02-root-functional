@@ -103,4 +103,130 @@ where {\tt Data.source()} produces a lazy input stream (Python generator) and {\
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Examples}
+
+\begin{block}{Filtering}
+\vspace{-0.5\baselineskip}
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fNtrack", "fFlag == 1")
+    Data.source().filter(lambda _: _.fFlag == 1).map(lambda _: _.fNtrack)
+\end{verbatim}}
+
+\vspace{-0.5\baselineskip}
+Note: filter must go first! Type constants can ensure that:
+\begin{itemize}
+\item {\tt filter} takes a {\tt function<Event -> bool>} and returns {\tt collection<Event>}
+\item {\tt map} takes a {\tt function<Event -> <T> >} and returns {\tt collection<T>} (in this case, {\tt collection<int>})
+\end{itemize}
+\end{block}
+
+\begin{block}{Weighting?}
+This problem is particular to HEP, but very important.
+
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fNtrack", "fFlag == 1")
+    Data.source().filter(lambda _: _.fFlag == 1).map(lambda _: _.fNtrack)
+\end{verbatim}}
+\vspace{-0.5\baselineskip}
+\end{block}
+
+
+
+
+%% # make new data structures in map for later processing or histogram weighting
+%% print Data.source(10).map(lambda _: (_.fNtrack, _.fTemperature))
+%% # [(603, 20.756078720092773), (602, 20.01813507080078), (596, 20.674409866333008), (602, 20.815942764282227), (592, 20.677644729614258), (596, 20.60653305053711), (603, 20.524988174438477), (589, 20.798776626586914), (600, 20.816205978393555), (600, 20.80414390563965)]
+
+
+\end{frame}
+
+%% ttree.Draw("fEvtHdr.fEvtNum + fTemperature * 6")
+%% Data.source().map(lambda _: _.fEvtHdr.fEvtNum + _.fTemperature * 6)
+
+%% ttree.Draw("fClosestDistance >> hFlatClosestDistance")
+%% Data.source().map(lambda _: _.fClosestDistance).flatten()
+%% Data.source().flatMap(lambda _: _.fClosestDistance)
+
+%% ttree.Draw("fTemperature - 20 * Alt$(fClosestDistance[9], 0)")
+%% Data.source().filterMap(lambda _: _.fTemperature - 20 * _.fClosestDistance.getOrElse(9, 0.0))
+
+%% ttree.Draw("fClosestDistance[2]")
+%% Data.source().filterMap(lambda _: _.fClosestDistance.getOrElse(2, None))
+%% Data.source().map(lambda _: _.fClosestDistance).flatMapGet(2)
+
+%% ttree.Draw("fNtrack", "fEvtHdr.fEvtNum % 10 == 0")
+%% Data.source().filter(lambda _: _.fEvtHdr.fEvtNum % 10 == 0).map(lambda _: _.fNtrack)
+
+%% ttree.Draw("fTracks.fPx")
+%% Data.source().flatMap(lambda event: event.fTracks).map(lambda track: track.fPx)
+%% Data.source().flatMap(lambda event: event.fTracks.map(lambda track: track.fPx))
+
+%% ttree.Draw("fNpoint >> hNpointPx", "fPx < 0)
+%% Data.source().flatMap(lambda _: _.fTracks).filter(lambda _: _.fPx < 0).map(lambda _: _.fNpoint)
+
+%% ttree.Draw("fMatrix")
+%% Data.source().map(lambda _: _.fMatrix).flatten().flatten()
+%% Data.source().map(lambda _: _.fMatrix[:][:]).flatten().flatten()
+%% Data.source().map(lambda _: _.fMatrix[:,:]).flatten().flatten()
+
+%% ttree.Draw("fMatrix[][0]")
+%% Data.source().map(lambda _: _.fMatrix[:,0]).flatten()
+
+%% ttree.Draw("fMatrix[1][]")
+%% Data.source().map(lambda _: _.fMatrix[1,:]).flatten()
+
+%% ttree.Draw("fMatrix[2][2]")
+%% Data.source().map(lambda _: _.fMatrix[2,2])
+
+%% ttree.Draw("fTracks.fVertex[0]")
+%% # you might think it's this:
+%% # Data.source().flatMap(lambda event: event.fTracks.map(lambda track: track.fVertex[0]))
+%% # but no, it's actually this:
+%% Data.source().flatMap(lambda event: event.fTracks[0].fVertex)
+
+%% ttree.Draw("fTracks[0].fVertex")
+%% # now you might think it's reversed:
+%% # Data.source(100).flatMap(lambda event: event.fTracks.map(lambda track: track.fVertex[0]))
+%% # but no, it's the same thing as before:
+%% Data.source(100).flatMap(lambda event: event.fTracks[0].fVertex)
+
+%% ttree.Draw("Sum$(fTracks.fPx)")
+%% Data.source(100).map(lambda event: event.fTracks.map(lambda track: track.fPx).sum())
+
+%% ttree.Draw("Sum$(fTracks.fVertex)")
+%% Data.source(100).map(lambda event: event.fTracks.flatMap(lambda track: track.fVertex).sum())
+
+%% ttree.Draw("Sum$(fTracks.fVertex[0])")
+%% # you might think it's this:
+%% # Data.source(100).map(lambda event: event.fTracks.map(lambda track: track.fVertex[0]).sum())
+%% # but no, it's actually this:
+%% Data.source(100).map(lambda event: event.fTracks[0].fVertex.sum())
+
+%% ttree.Draw("Sum$(fTracks[0].fVertex)")
+%% # now you might think it's reversed:
+%% # Data.source(100).map(lambda event: event.fTracks.map(lambda track: track.fVertex[0]).sum())
+%% # but no, it's the same thing as before:
+%% Data.source(100).map(lambda event: event.fTracks[0].fVertex.sum())
+
+%% ### more general stuff
+
+%% # set-like functions
+%% print Data.source().map(lambda _: _.fType).distinct()
+%% # [u'type0', u'type1', u'type2', u'type3', u'type4']
+
+%% # mix data from different events (intentionally, with "skip" and "zip", not through an indexing error)
+%% print Data.zip(Data.source(10).map(lambda _: _.fEvtHdr.fEvtNum),
+%%                Data.source(10).skip(1).map(lambda _: _.fEvtHdr.fEvtNum))
+%% # [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9)]
+
+%% # classic map-reduce
+%% # ... over events
+%% print Data.source(10).map(lambda _: (_.fType, _.fTemperature)).reduceByKey(lambda x, y: x + y)
+%% # {u'type4': 41.481788635253906, u'type1': 40.54312324523926, u'type0': 41.36261177062988, u'type3': 41.63214874267578, u'type2': 41.47318649291992}
+%% # ... over tracks
+%% print Data.source(100).flatMap(lambda event: event.fTracks.map(lambda track: (event.fType, track.fPx))).reduceByKey(lambda x, y: x + y)
+%% # {u'type4': 71.62951914654695, u'type1': 64.94598009073525, u'type0': 78.63334554358516, u'type3': -70.40691937762313, u'type2': 5.186185833030322}
+
+
+
 \end{document}
