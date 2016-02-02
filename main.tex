@@ -280,6 +280,7 @@ still matches the second functional chain. Is there {\it any} way to get the fir
                                           .reduce(lambda x, y: x + y))
 
     # same as above with sum() as alias for reduce(lambda x, y: x + y)
+    # similarly for min(), max(), mean(), stdev(), etc.
     Data.source().map(lambda event:
                              event.fTracks.map(lambda track:
                                                       track.fPx).sum())
