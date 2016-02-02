@@ -46,7 +46,7 @@ Like an SQL-select and SQL-where (no SQL-groupby).
 \begin{itemize}
 \item Good for quick plots (very important!)
 \item Some transformations cannot be expressed (good and bad, depending)
-\item Users can step beyond this by writing explicit for-loops over ntuple contents, but at a cost:
+\item Users can go beyond this by writing explicit for-loops over ntuple contents, but at a cost:
 \begin{itemize}
 \item Explicit, imperative programs can't be easily parallelized
 \item Pointer issues and reusing data (for speed) can lead to subtle bugs with stale data
@@ -54,7 +54,20 @@ Like an SQL-select and SQL-where (no SQL-groupby).
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Motivation}
+\begin{block}
+C++11 introduced a syntax for lambda expressions, which would make a functional style convenient. For instance, the mini-language could be replaced by:
+{\scriptsize \begin{verbatim}
+    [](Event _) { return _.fNtrack/_.fNvertex; }
+\end{verbatim}}
+and
+{\scriptsize \begin{verbatim}
+    [](Event _) { return _.fIsValid && _.fFlag == 1; }
+\end{verbatim}}
+here
 
 
+\end{block}
+\end{frame}
 
 \end{document}
