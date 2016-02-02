@@ -148,8 +148,40 @@ Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? 
 \end{block}
 \end{frame}
 
-%% ttree.Draw("fEvtHdr.fEvtNum + fTemperature * 6")
-%% Data.source().map(lambda _: _.fEvtHdr.fEvtNum + _.fTemperature * 6)
+\begin{frame}{Examples}
+\begin{block}{Record structure}
+\vspace{-0.5\baselineskip}
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fEvtHdr.fEvtNum + fTemperature * 6")
+    Data.source().map(lambda _: _.fEvtHdr.fEvtNum + _.fTemperature * 6)
+\end{verbatim}}
+\vspace{-0.5\baselineskip}
+\end{block}
+
+\begin{block}{Fixed-size arrays}
+\vspace{-0.5\baselineskip}
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fMatrix")
+    Data.source().map(lambda _: _.fMatrix).flatten().flatten()
+    Data.source().map(lambda _: _.fMatrix[:][:]).flatten().flatten()
+    Data.source().map(lambda _: _.fMatrix[:,:]).flatten().flatten()
+
+    ttree.Draw("fMatrix[][0]")
+    Data.source().map(lambda _: _.fMatrix[:,0]).flatten()
+    Data.source().flatMap(lambda _: _.fMatrix[:,0])
+
+    ttree.Draw("fMatrix[1][]")
+    Data.source().map(lambda _: _.fMatrix[1,:]).flatten()
+    Data.source().flatMap(lambda _: _.fMatrix[1,:])
+
+    ttree.Draw("fMatrix[2][2]")
+    Data.source().map(lambda _: _.fMatrix[2,2])
+\end{verbatim}}
+\vspace{-0.5\baselineskip}
+\end{block}
+\end{frame}
+
+
 
 %% ttree.Draw("fClosestDistance >> hFlatClosestDistance")
 %% Data.source().map(lambda _: _.fClosestDistance).flatten()
@@ -162,29 +194,12 @@ Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? 
 %% Data.source().filterMap(lambda _: _.fClosestDistance.getOrElse(2, None))
 %% Data.source().map(lambda _: _.fClosestDistance).flatMapGet(2)
 
-%% ttree.Draw("fNtrack", "fEvtHdr.fEvtNum % 10 == 0")
-%% Data.source().filter(lambda _: _.fEvtHdr.fEvtNum % 10 == 0).map(lambda _: _.fNtrack)
-
 %% ttree.Draw("fTracks.fPx")
 %% Data.source().flatMap(lambda event: event.fTracks).map(lambda track: track.fPx)
 %% Data.source().flatMap(lambda event: event.fTracks.map(lambda track: track.fPx))
 
 %% ttree.Draw("fNpoint >> hNpointPx", "fPx < 0)
 %% Data.source().flatMap(lambda _: _.fTracks).filter(lambda _: _.fPx < 0).map(lambda _: _.fNpoint)
-
-%% ttree.Draw("fMatrix")
-%% Data.source().map(lambda _: _.fMatrix).flatten().flatten()
-%% Data.source().map(lambda _: _.fMatrix[:][:]).flatten().flatten()
-%% Data.source().map(lambda _: _.fMatrix[:,:]).flatten().flatten()
-
-%% ttree.Draw("fMatrix[][0]")
-%% Data.source().map(lambda _: _.fMatrix[:,0]).flatten()
-
-%% ttree.Draw("fMatrix[1][]")
-%% Data.source().map(lambda _: _.fMatrix[1,:]).flatten()
-
-%% ttree.Draw("fMatrix[2][2]")
-%% Data.source().map(lambda _: _.fMatrix[2,2])
 
 %% ttree.Draw("fTracks.fVertex[0]")
 %% # you might think it's this:
