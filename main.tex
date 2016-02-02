@@ -324,7 +324,10 @@ print Data.source().map(lambda event:
 
 \begin{frame}[fragile]{Examples}
 \begin{block}{${\mathcal O}(n^2)$ operations on subcollections}
+
+\vfill
 For $i$ in length, for $j$ in length:
+\vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
 print Data.source().map(lambda event:
                                event.fTracks.cartesian(event.fTracks)
@@ -341,12 +344,14 @@ print Data.source().map(lambda event:
 
 \vfill
 For $i$ in length, for $j \ge i$:
+\vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
 print Data.source(1).map(lambda event: event.fTracks.triangular()
                                             .map(lambda (one, two):
                                                      one.fPx - two.fPx))
 [0.0, -1.5152950286865234, -1.580427646636963, 0.8946521282196045, ...
 \end{verbatim}}
+\vspace{-0.5\baselineskip}
 \end{block}
 \end{frame}
 
