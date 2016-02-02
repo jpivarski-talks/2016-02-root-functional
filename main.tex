@@ -49,7 +49,7 @@ Like an SQL-select and SQL-where (no SQL-groupby).
 \item Users can go beyond this by writing explicit for-loops over ntuple contents, but at a cost:
 \begin{itemize}
 \item Explicit, imperative programs can't be easily parallelized
-\item Pointer issues and reusing data (for speed) can lead to subtle bugs with stale data
+\item Pointer issues and reusing data (for speed) can lead to major bugs from uninitialized data and subtle bugs from stale data
 \end{itemize}
 \end{itemize}
 \end{frame}
