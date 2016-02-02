@@ -295,8 +295,25 @@ The nested loop over vertex components within tracks is made explicit by the two
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Examples}
+\begin{block}{Mixing data from different events (or tracks)}
+The lack of index variables prevents accidental mixing between elements of a collection.
 
+Most common intentional mixing is off-by-one comparisons. Introduce
+\begin{itemize}
+\item {\tt skip(int n)} to offset a collection by {\tt n}
+\item {\tt zip(collections*)} to walk through them in lock step
+\end{itemize}
 
+\vspace{-0.5\baselineskip}
+{\scriptsize \begin{verbatim}
+    print Data.zip(Data.source(10).map(lambda _: _.fEvtHdr.fEvtNum),
+                   Data.source(10).skip(1).map(lambda _: _.fEvtHdr.fEvtNum))
+
+    [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), (8, 9)]
+\end{verbatim}}
+\end{block}
+\end{frame}
 
 
 %% ### more general stuff
