@@ -235,8 +235,8 @@ They might optimize differently, though.
                  .filter(lambda _: _.fPx < 0)
                  .map(lambda _: _.fNpoint)
 
-    ttree.Draw("fNpoint", "fEvtHdr.fEvtNum % 10 == 0)
-    Data.source().filter(lambda _: _.fEvtHdr.fEvtNum % 10 == 0)
+    ttree.Draw("fNpoint", "fEvtHdr.fEvtNum \% 10 == 0)
+    Data.source().filter(lambda _: _.fEvtHdr.fEvtNum \% 10 == 0)
                  .flatMap(lambda _: _.fTracks)
                  .map(lambda _: _.fNpoint)
 \end{verbatim}}
