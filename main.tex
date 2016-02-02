@@ -365,17 +365,17 @@ The lack of index variables prevents accidental mixing between elements of a col
     {"type0": [20.756078720092773, 20.60653305053711, 20.34678840637207, ...
      "type1": [20.01813507080078, 20.524988174438477, 20.92605972290039, ...
      ...
+
+    print Data.source().map(lambda event:
+                                (event.fType, event.fTracks.map(lambda track:
+                                                                  track.fPx).sum()))
+                       .groupByKey()
+    {"type0": [-12.20141019928269, 25.45827755134087, -21.24391257809475, ...
+     "type1": [3.8320341074140742, 24.39618847006932, 15.366899827262387, ...
+     ...
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
 This kind of reducer would output a collection of key-histogram pairs. Physicists already do this manually, by repeatedly looping over the same ntuple (myself included).
-
-%% \vfill
-%% The key must be categorical (such as {\tt fType} strings), and categorical variables would usually be made by binning:
-%% \begin{itemize}
-%% \item {\tt bin(int num, double low, double high)} to make {\tt num + 2} categories (including ``underflow'' and ``overflow'')
-%% \item {\tt bin(double start, double width)} to make regular partitions without bounds
-%% \item {\tt bin(double centers*)} to make irregular partitions without bounds
-%% \end{itemize}
 \end{block}
 \end{frame}
 
