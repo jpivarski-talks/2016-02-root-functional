@@ -220,15 +220,33 @@ Note: {\tt filterMap} drops {\tt None} (or {\tt nullptr}) results, similar to {\
                                                     track.fPx))
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
-Note: these two solutions differ by the placement of a close-parenthesis, yet they have no semantic difference. They might optimize differently, though.
+Note: these two solutions differ by the placement of a close-parenthesis, yet they have no semantic difference.
+
+\vspace{0.5\baselineskip}
+They might optimize differently, though.
 \end{block}
+
+\begin{frame}[fragile]{Examples}
+\begin{block}{Subcollections of records with filtering}
+\vspace{-0.5\baselineskip}
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fNpoint", "fPx < 0)
+    Data.source().flatMap(lambda _: _.fTracks)
+                 .filter(lambda _: _.fPx < 0)
+                 .map(lambda _: _.fNpoint)
+
+    ttree.Draw("fNpoint", "fEvtHdr.fEvtNum % 10 == 0)
+    Data.source().filter(lambda _: _.fEvtHdr.fEvtNum % 10 == 0)
+                 .flatMap(lambda _: _.fTracks)
+                 .map(lambda _: _.fNpoint)
+\end{verbatim}}
+\end{block}
+
 \end{frame}
 
 
 
 
-%% ttree.Draw("fNpoint >> hNpointPx", "fPx < 0)
-%% Data.source().flatMap(lambda _: _.fTracks).filter(lambda _: _.fPx < 0).map(lambda _: _.fNpoint)
 
 %% ttree.Draw("fTracks.fVertex[0]")
 %% # you might think it's this:
