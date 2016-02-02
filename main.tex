@@ -312,6 +312,11 @@ print Data.zip(Data.source().map(lambda _: _.fEvtHdr.fEvtNum),
                Data.source().skip(1).map(lambda _: _.fEvtHdr.fEvtNum))
 
 [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (7, 8), ...
+
+
+print Data.source().map(lambda event: Data.zip(event.fTracks,
+                                               event.fTracks.skip(1))
+                                          .map(lambda tup: tup[0].fPx - tup[1].fPx))
 \end{verbatim}}
 \end{block}
 \end{frame}
