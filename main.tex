@@ -212,9 +212,11 @@ Note: {\tt filterMap} drops {\tt None} (or {\tt nullptr}) results, similar to {\
 {\scriptsize \begin{verbatim}
     ttree.Draw("fTracks.fPx")
 
+    # flat chain
     Data.source().flatMap(lambda event: event.fTracks)
                  .map(lambda track: track.fPx)
 
+    # nested chain
     Data.source().flatMap(lambda event:
                               event.fTracks.map(lambda track:
                                                     track.fPx))
@@ -225,13 +227,13 @@ Note: {\tt filterMap} drops {\tt None} (or {\tt nullptr}) results, similar to {\
 \begin{block}{Subcollections of records with filtering}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
-    ttree.Draw("fNpoint", "fPx < 0)
+    ttree.Draw("fNpoint", "fPx < 0)              # cut on track feature
     Data.source().flatMap(lambda _: _.fTracks)
-                 .filter(lambda _: _.fPx < 0)
+                 .filter(lambda _: _.fPx < 0)    # filter tracks
                  .map(lambda _: _.fNpoint)
 
-    ttree.Draw("fNpoint", "fEvtHdr.fEvtNum % 10 == 0)
-    Data.source().filter(lambda _: _.fEvtHdr.fEvtNum % 10 == 0)
+    ttree.Draw("fNpoint", "fIsValid")            # cut on event feature
+    Data.source().filter(lambda _: _.fIsValid)   # filter events
                  .flatMap(lambda _: _.fTracks)
                  .map(lambda _: _.fNpoint)
 \end{verbatim}}
