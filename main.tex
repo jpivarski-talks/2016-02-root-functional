@@ -160,7 +160,7 @@ Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? 
 
 \begin{block}{Fixed-length subcollections}
 Flattening must be explicit, which ensures intention.
-
+\vspace{-0.25\baselineskip}
 {\scriptsize \begin{verbatim}
     ttree.Draw("fMatrix")
     Data.source().map(lambda _: _.fMatrix).flatten().flatten()
@@ -177,7 +177,7 @@ Flattening must be explicit, which ensures intention.
     ttree.Draw("fMatrix[2][2]")
     Data.source().map(lambda _: _.fMatrix[2,2])
 \end{verbatim}}
-
+\vspace{-0.5\baselineskip}
 Note: {\tt flatMap} is {\tt map().flatten()} with an optimization hint.
 \end{block}
 \end{frame}
