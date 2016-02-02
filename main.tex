@@ -178,7 +178,7 @@ Flattening must be explicit to ensure intention.
     Data.source().map(lambda _: _.fMatrix[2,2])
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
-Note: {\tt flatMap} is {\tt map().flatten()} with an optimization hint.
+Note: {\tt flatMap()} is {\tt map().flatten()} with an optimization hint.
 \end{block}
 \end{frame}
 
@@ -199,10 +199,10 @@ Note: {\tt flatMap} is {\tt map().flatten()} with an optimization hint.
     Data.source().map(lambda _: _.fClosestDistance).flatMapGet(2)
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
-Note: {\tt filterMap} drops {\tt None} (or {\tt nullptr}) results, similar to {\tt flatMap} but thinking of a nullable value as a collection of zero or one elements.
+Note: {\tt filterMap()} drops {\tt None} (or {\tt nullptr}) results, similar to {\tt flatMap()} but thinking of a nullable value as a collection of zero or one elements.
 
 \vspace{0.5\baselineskip}
-{\tt flatMapGet} maps a {\tt get} operation across subcollections, keeping only those for which the specified index exists. Perhaps a better solution than {\tt filterMap}, though less general.
+{\tt flatMapGet()} maps a {\tt get()} operation across subcollections, keeping only those for which the specified index exists. Perhaps a better solution than {\tt filterMap()}, though less general.
 \end{block}
 \end{frame}
 
