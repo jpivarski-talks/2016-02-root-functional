@@ -250,7 +250,7 @@ The ROOT syntax for this one is ambiguous.
 {\scriptsize \begin{verbatim}
     ttree.Draw("fTracks.fVertex[0]")
 
-    # I would have thought it's the zeroth vertex component of every track:
+    # I would have thought it's the first vertex component of every track:
     Data.source().flatMap(lambda event:
                                  event.fTracks.map(lambda track:
                                                           track.fVertex[0]))
@@ -266,6 +266,32 @@ Moreover, moving the bracketed expression doesn't change the meaning as I'd thin
 \end{verbatim}}
 
 still matches the second functional chain. Is there {\it any} way to get the first?
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Examples}
+\begin{block}{Aggregation}
+\vspace{-0.5\baselineskip}
+{\scriptsize \begin{verbatim}
+    # sum of fPx for all tracks in each event
+    ttree.Draw("Sum$(fTracks.fPx)")
+    Data.source().map(lambda event:
+                             event.fTracks.map(lambda track:
+                                                      track.fPx)
+                                          .reduce(lambda x, y: x + y))
+
+    # same as above with sum() as alias for reduce(lambda x, y: x + y)
+    Data.source().map(lambda event:
+                             event.fTracks.map(lambda track:
+                                                      track.fPx).sum())
+
+    # sum over vertex components over all tracks in each event
+    ttree.Draw("Sum$(fTracks.fVertex)")
+    Data.source().map(lambda event:
+                             event.fTracks.flatMap(lambda track:
+                                                          track.fVertex).sum())
+\end{verbatim}}
+\vspace{-0.5\baselineskip}
 \end{block}
 \end{frame}
 
