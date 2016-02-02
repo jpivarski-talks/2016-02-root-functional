@@ -69,9 +69,10 @@ and
 \begin{block}{}
 Functional pipelines form the basis of data manipulation in R, NumPy, Hadoop, Spark, SQL, Lisp, and others. The basic style is (Spark example):
 {\scriptsize \begin{verbatim}
-    val output = input filter {x => x.fIsValid &&
-                                    x.fFlag == 1} map {x.fNtrack / x.fNvertex}
-    output.take(10)
+    val output = input.filter(x => x.fIsValid && x.fFlag == 1)
+                      .map(x.fNtrack / x.fNvertex)               // set up chain
+
+    output.take(10)                             // evaluate for first 10 outputs
 \end{verbatim}}
 
 
