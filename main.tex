@@ -317,9 +317,35 @@ print Data.zip(Data.source().map(lambda _: _.fEvtHdr.fEvtNum),
 print Data.source().map(lambda event:
                             Data.zip(event.fTracks,
                                      event.fTracks.skip(1))
-                                .map(lambda one, two: one.fPx - two.fPx))
+                                .map(lambda (one, two): one.fPx - two.fPx))
 
 [-1.5152950286865234, -0.06513261795043945, 2.4750797748565674, ...
+\end{verbatim}}
+\end{block}
+\end{frame}
+
+\begin{frame}{Examples}
+\begin{block}{${\mathcal O}(n^2)$ operations on subcollections}
+Like nested for loops:
+{\scriptsize \begin{verbatim}
+print Data.source.map(lambda event: event.fTracks.cartesian(event.fTracks)
+                                         .map(lambda (one, two): one.fPx - two.fPx))
+
+[0.0, -1.5152950286865234, -1.580427646636963, 0.8946521282196045, ...
+
+print Data.source(1).map(lambda event: event.fTracks.cartesian(event.fClosestDistance)
+                                            .map(lambda (one, two): one.fPx - two))
+
+[-1.9208314418792725, -0.19817519187927246, -2.0458314418792725, ...
+\end{verbatim}}
+
+\vfill
+Or {\tt foreach i... foreach j >= i...}
+{\scriptsize \begin{verbatim}
+print Data.source(1).map(lambda event: event.fTracks.triangular()
+                                            .map(lambda (one, two): one.fPx - two.fPx))
+
+[0.0, -1.5152950286865234, -1.580427646636963, 0.8946521282196045, ...
 \end{verbatim}}
 \end{block}
 \end{frame}
