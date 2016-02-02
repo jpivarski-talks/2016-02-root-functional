@@ -181,18 +181,26 @@ Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? 
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Examples}
+\begin{block}{Variable-sized arrays}
+\vspace{-0.5\baselineskip}
+{\scriptsize \begin{verbatim}
+    ttree.Draw("fClosestDistance >> hFlatClosestDistance")
+    Data.source().map(lambda _: _.fClosestDistance).flatten()
+    Data.source().flatMap(lambda _: _.fClosestDistance)
+
+    ttree.Draw("fTemperature - 20 * Alt$(fClosestDistance[9], 0)")
+    Data.source().filterMap(lambda _: _.fTemperature - 20 * _.fClosestDistance.getOrElse(9, 0.0))
+
+    ttree.Draw("fClosestDistance[2]")
+    Data.source().filterMap(lambda _: _.fClosestDistance.getOrElse(2, None))
+    Data.source().map(lambda _: _.fClosestDistance).flatMapGet(2)
+\end{verbatim}}
+\vspace{-0.5\baselineskip}
+\end{block}
+\end{frame}
 
 
-%% ttree.Draw("fClosestDistance >> hFlatClosestDistance")
-%% Data.source().map(lambda _: _.fClosestDistance).flatten()
-%% Data.source().flatMap(lambda _: _.fClosestDistance)
-
-%% ttree.Draw("fTemperature - 20 * Alt$(fClosestDistance[9], 0)")
-%% Data.source().filterMap(lambda _: _.fTemperature - 20 * _.fClosestDistance.getOrElse(9, 0.0))
-
-%% ttree.Draw("fClosestDistance[2]")
-%% Data.source().filterMap(lambda _: _.fClosestDistance.getOrElse(2, None))
-%% Data.source().map(lambda _: _.fClosestDistance).flatMapGet(2)
 
 %% ttree.Draw("fTracks.fPx")
 %% Data.source().flatMap(lambda event: event.fTracks).map(lambda track: track.fPx)
