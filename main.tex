@@ -369,13 +369,13 @@ The lack of index variables prevents accidental mixing between elements of a col
 \vspace{-0.5\baselineskip}
 This kind of reducer would output a collection of key-histogram pairs. Physicists already do this manually, by repeatedly looping over the same ntuple (myself included).
 
-\vfill
-The key must be categorical (such as {\tt fType} strings), and categorical variables would usually be made by binning:
-\begin{itemize}
-\item {\tt bin(int num, double low, double high)} to make {\tt num + 2} categories (including ``underflow'' and ``overflow'')
-\item {\tt bin(double start, double width)} to make regular partitions without bounds
-\item {\tt bin(double centers*)} to make irregular partitions without bounds
-\end{itemize}
+%% \vfill
+%% The key must be categorical (such as {\tt fType} strings), and categorical variables would usually be made by binning:
+%% \begin{itemize}
+%% \item {\tt bin(int num, double low, double high)} to make {\tt num + 2} categories (including ``underflow'' and ``overflow'')
+%% \item {\tt bin(double start, double width)} to make regular partitions without bounds
+%% \item {\tt bin(double centers*)} to make irregular partitions without bounds
+%% \end{itemize}
 \end{block}
 \end{frame}
 
