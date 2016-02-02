@@ -327,6 +327,7 @@ print Data.source().map(lambda event:
 \begin{frame}{Examples}
 \begin{block}{${\mathcal O}(n^2)$ operations on subcollections}
 Like nested for loops:
+
 {\scriptsize \begin{verbatim}
 print Data.source.map(lambda event: event.fTracks.cartesian(event.fTracks)
                                          .map(lambda (one, two): one.fPx - two.fPx))
