@@ -367,8 +367,7 @@ The lack of index variables prevents accidental mixing between elements of a col
      ...
 
     print Data.source().map(lambda event:
-                                (event.fType, event.fTracks.map(lambda track:
-                                                                  track.fPx).sum()))
+              (event.fType, event.fTracks.map(lambda track: track.fPx).sum()))
                        .groupByKey()
     {"type0": [-12.20141019928269, 25.45827755134087, -21.24391257809475, ...
      "type1": [3.8320341074140742, 24.39618847006932, 15.366899827262387, ...
