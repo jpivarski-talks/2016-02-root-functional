@@ -248,12 +248,12 @@ The ROOT syntax for this one is ambiguous.
 {\scriptsize \begin{verbatim}
     ttree.Draw("fTracks.fVertex[0]")
 
-    # I would have thought it's this:
+    # I would have thought it's the zeroth vertex component of every track:
     Data.source().flatMap(lambda event:
                                  event.fTracks.map(lambda track:
                                                           track.fVertex[0]))
 
-    # But no, it's actually this:
+    # But no, it's actually all vertex components of the first track:
     Data.source().flatMap(lambda event: event.fTracks[0].fVertex)
 \end{verbatim}}
 
@@ -263,7 +263,7 @@ Moreover, moving the bracketed expression doesn't change the meaning as I'd thin
     ttree.Draw("fTracks[0].fVertex")
 \end{verbatim}}
 
-still matches the second functional chain. Is there {\it any} way to plot the zeroth vertex component of all tracks?
+still matches the second functional chain. Is there {\it any} way to get the first?
 \end{block}
 \end{frame}
 
