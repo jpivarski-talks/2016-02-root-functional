@@ -355,6 +355,7 @@ The lack of index variables prevents accidental mixing between elements of a col
 
 \begin{frame}[fragile]{Examples}
 \begin{block}{Partitioning by one feature and plotting another}
+Add a command like SQL-groupby to complete the mini-language:
 \begin{itemize}
 \item {\tt groupByKey()} takes key-value pairs and makes a histogram for each key (as a {\tt std::map<std::string, TH1>}, perhaps).
 \end{itemize}
@@ -375,6 +376,8 @@ The lack of index variables prevents accidental mixing between elements of a col
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
 Physicists already do this manually, by repeatedly looping over the same ntuple (myself included).
+
+Expressed this way, it's classic map-reduce, which covers a wide variety of use-cases.
 \end{block}
 \end{frame}
 
