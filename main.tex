@@ -56,7 +56,7 @@ Like an SQL-select and SQL-where (no SQL-groupby).
 
 \begin{frame}[fragile]{Motivation}
 \begin{block}{}
-C++11 introduced a syntax for lambda expressions, which would make a functional style convenient. For instance, the mini-language could be replaced by:
+C++11 introduced a syntax for inline functions, which would make a functional style convenient. For instance, the mini-language could be replaced by:
 {\scriptsize \begin{verbatim}
     [](Event _) { return _.fNtrack / _.fNvertex; }
 \end{verbatim}}
@@ -67,19 +67,20 @@ and
 \end{block}
 
 \begin{block}{}
-Functional pipelines form the basis of data manipulation in R, NumPy, Hadoop, Spark, SQL, Lisp, and others. The basic style is (Spark example):
+Functional pipelines form the basis of data manipulation in R, NumPy, Hadoop, Spark, SQL, Lisp, and others.
+
+The basic style is (Spark example):
 {\scriptsize \begin{verbatim}
     val output = input.filter(x => x.fIsValid && x.fFlag == 1)
-                      .map(x.fNtrack / x.fNvertex)    // set up chain
-    output.take(10)                                   // evaluate for 10 outputs
+                      .map(x => x.fNtrack / x.fNvertex)    // set up chain
+    output.take(10)                                        // get 10 outputs
 \end{verbatim}}
-
-
 \end{block}
-
-
-
-
+\begin{itemize}
+\item No explicit index, only dummy variables
+\item Small collection of functors that accept inline functions
+\item Parallelization is handled by back-end code
+\end{itemize}
 \end{frame}
 
 \end{document}
