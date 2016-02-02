@@ -178,6 +178,7 @@ Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? 
     Data.source().map(lambda _: _.fMatrix[2,2])
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
+Note: {\tt flatMap} is equivalent to {\tt map} followed by {\tt flatten}, but it provides an optimization hint.
 \end{block}
 \end{frame}
 
@@ -185,18 +186,22 @@ Perhaps a special {\tt weight} functor modifies the {\tt collection<T>} itself? 
 \begin{block}{Variable-sized arrays}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
-    ttree.Draw("fClosestDistance >> hFlatClosestDistance")
+    ttree.Draw("fClosestDistance")
     Data.source().map(lambda _: _.fClosestDistance).flatten()
     Data.source().flatMap(lambda _: _.fClosestDistance)
 
     ttree.Draw("fTemperature - 20 * Alt$(fClosestDistance[9], 0)")
-    Data.source().filterMap(lambda _: _.fTemperature - 20 * _.fClosestDistance.getOrElse(9, 0.0))
+    Data.source().filterMap(lambda _: _.fTemperature - 20 *
+                                      _.fClosestDistance.getOrElse(9, 0.0))
 
     ttree.Draw("fClosestDistance[2]")
     Data.source().filterMap(lambda _: _.fClosestDistance.getOrElse(2, None))
     Data.source().map(lambda _: _.fClosestDistance).flatMapGet(2)
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
+Note: {\tt filterMap} drops {\tt None} (or {\tt nullptr}) results, similar to {\tt flatMap} but thinking of a nullable value as a collection of zero or one elements.
+
+\textcolor{white}{Note:} {\tt flatMapGet} maps a {\tt get} operation across subcollections, keeping only those for which {\tt 2} exists. Perhaps a better solution than {\tt filterMap}, though less general.
 \end{block}
 \end{frame}
 
