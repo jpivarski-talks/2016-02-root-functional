@@ -218,8 +218,8 @@ Note: {\tt filterMap} drops {\tt None} (or {\tt nullptr}) results, similar to {\
 
     # nested chain
     Data.source().flatMap(lambda event:
-                              event.fTracks.map(lambda track:
-                                                    track.fPx))
+                                 event.fTracks.map(lambda track:
+                                                          track.fPx))
 \end{verbatim}}
 \vspace{-0.5\baselineskip}
 \end{block}
