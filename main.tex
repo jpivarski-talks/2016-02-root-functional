@@ -345,7 +345,7 @@ The lack of index variables prevents accidental mixing between elements of a col
 \begin{block}{Upper triangle (for all $i$ in collection, for $j \ge i$ in collection)}
 \vspace{-0.5\baselineskip}
 {\scriptsize \begin{verbatim}
-    print Data.source().map(lambda event: event.fTracks.triangular()
+    print Data.source().map(lambda event: event.fTracks.triangular(0)
                                                .map(lambda (one, two):
                                                         one.fPx - two.fPx))
     [0.0, -1.5152950286865234, -1.580427646636963, 0.8946521282196045, ...
