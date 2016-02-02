@@ -290,31 +290,14 @@ still matches the second functional chain. Is there {\it any} way to get the fir
                              event.fTracks.flatMap(lambda track:
                                                      track.fVertex).sum())
 \end{verbatim}}
-\vspace{-0.5\baselineskip}
+
+The nested loop over vertex components within tracks is made explicit by the two maps (one of which is a {\tt flatMap} because we're eliminating nested structure to do the sum).
 \end{block}
 \end{frame}
 
 
 
 
-
-%% ttree.Draw("Sum$(fTracks.fPx)")
-%% Data.source(100).map(lambda event: event.fTracks.map(lambda track: track.fPx).sum())
-
-%% ttree.Draw("Sum$(fTracks.fVertex)")
-%% Data.source(100).map(lambda event: event.fTracks.flatMap(lambda track: track.fVertex).sum())
-
-%% ttree.Draw("Sum$(fTracks.fVertex[0])")
-%% # you might think it's this:
-%% # Data.source(100).map(lambda event: event.fTracks.map(lambda track: track.fVertex[0]).sum())
-%% # but no, it's actually this:
-%% Data.source(100).map(lambda event: event.fTracks[0].fVertex.sum())
-
-%% ttree.Draw("Sum$(fTracks[0].fVertex)")
-%% # now you might think it's reversed:
-%% # Data.source(100).map(lambda event: event.fTracks.map(lambda track: track.fVertex[0]).sum())
-%% # but no, it's the same thing as before:
-%% Data.source(100).map(lambda event: event.fTracks[0].fVertex.sum())
 
 %% ### more general stuff
 
