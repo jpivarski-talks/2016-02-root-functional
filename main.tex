@@ -38,22 +38,23 @@ The process of cutting and transforming ntuples, putting results in plots, is th
 \begin{block}{}
 ROOT has a mini-language for cuts and transformations:
 {\scriptsize \begin{verbatim}
-ttree->Draw("fNtrack/fNvertex", "fIsValid && fFlag == 1")
+    ttree->Draw("fNtrack/fNvertex", "fIsValid && fFlag == 1")
 \end{verbatim}}
 Like an SQL-select and SQL-where (no SQL-groupby).
 \end{block}
 
 \begin{itemize}
-\item Good for quick plots (very important!).
-\item Some transformations cannot be expressed (good and bad, depending).
+\item Good for quick plots (very important!)
+\item Some transformations cannot be expressed (good and bad, depending)
 \item Users can step beyond this by writing explicit for-loops over ntuple contents, but at a cost:
 \begin{itemize}
-\item Explicit, imperative programs can't be easily parallelized.
-\item Pointer issues and reusing data (for speed) can lead to subtle bugs with stale data.
+\item Explicit, imperative programs can't be easily parallelized
+\item Pointer issues and reusing data (for speed) can lead to subtle bugs with stale data
 \end{itemize}
 \end{itemize}
-
-
 \end{frame}
+
+
+
 
 \end{document}
